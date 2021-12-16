@@ -18,10 +18,14 @@ var countTimer = 13;
 var counter = 0;
 // 「tapFlag」的のタップ可否設定
 var tapFlag = false;
-// 効果音の再生
-var audio = new Audio();
-audio.src = "pin.wav";
-audio.play();
+// alarmの設定
+function alarm() {
+  // 効果音の再生
+  var audio = new Audio();
+  audio.src = "pin.wav";
+  audio.play();
+}
+
 
 // 「Start」ボタン押下時の処理
 function startGame() {
@@ -36,6 +40,10 @@ function startGame() {
   this.countTimer = 13;
   // タイマーを起動
   countTime(countTimer);
+  // タイマーが0の時終了のアラームを流す
+  if (countTimer == 0) {
+    alarm();
+  }
 }
 
 // 【mBaaS】データの保存
