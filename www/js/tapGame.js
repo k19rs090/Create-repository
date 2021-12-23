@@ -40,7 +40,7 @@ function startGame() {
   this.countTimer = 13;
   // タイマーを起動
   countTime(countTimer);
-  // タイマーが0の時終了のアラームを流す
+  // タイマーが0の時、終了のアラームを流す
   if (countTimer == 0) {
     alarm();
   }
