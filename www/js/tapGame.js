@@ -18,12 +18,28 @@ var countTimer = 13;
 var counter = 0;
 // 「tapFlag」的のタップ可否設定
 var tapFlag = false;
+
+var active = false;
+var startTime = 0;
+var period = 0;
+
 // alarmの設定
 function alarm() {
   // 効果音の再生
   var audio = new Audio();
   audio.src = "pin.wav";
   audio.play();
+}
+
+function btnAClick(e) {
+}
+
+function timer() {
+  if (active) {
+    var time = parseInt((new Date() - startTime) / 1000);
+    var rest = period - time;
+    analog(rest);
+  }
 }
 
 
@@ -36,14 +52,11 @@ function startGame() {
   // タップカウンターリセット
   this.counter = 0;
   $("#list-page strong").html(String(0));
+
   // タイマーリセット
   this.countTimer = 13;
   // タイマーを起動
   countTime(countTimer);
-  // タイマーが0の時、終了のアラームを流す
-  if (countTimer == 0) {
-    alarm();
-  }
 }
 
 // 【mBaaS】データの保存
@@ -88,6 +101,8 @@ function countTime(time) {
     } else if (time == 10) {
       this.tapFlag = true;
       $("#list-page p").html("スタート！");
+    } else if (time < 0) {
+      alarm();
     } else {
       this.tapFlag = true;
       $("#list-page p").html(String(time));
